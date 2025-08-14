@@ -1,0 +1,39 @@
+<div class="modal-header">
+  <h4 class="modal-title">Edit Movie</h4>
+  <button type="button" class="btn-close" aria-label="Close" (click)="activeModal.dismiss()"></button>
+</div>
+<div class="modal-body">
+  <form (ngSubmit)="updateMovie()">
+    <div class="mb-3">
+      <label for="movieId" class="form-label">Movie ID</label>
+      <input type="text" class="form-control" id="movieId" [(ngModel)]="movie.id" name="id" disabled>
+    </div>
+    <div class="mb-3">
+      <label for="movieName" class="form-label">Movie Name</label>
+      <input type="text" class="form-control" id="movieName" [(ngModel)]="movie.movieName" name="movieName" disabled>
+    </div>
+    <div class="mb-3">
+      <label for="description" class="form-label">Description</label>
+      <textarea class="form-control" id="description" rows="3" [(ngModel)]="movie.description" name="description"></textarea>
+    </div>
+    <div class="mb-3">
+      <label for="rate" class="form-label">Rating</label>
+      <input type="text" class="form-control" id="rate" [(ngModel)]="movie.rate" name="rate">
+    </div>
+    <div class="mb-3">
+      <label for="category" class="form-label">Category</label>
+      <select class="form-select" id="category" [(ngModel)]="movie.category" name="category">
+        <option *ngFor="let category of categories" [value]="category">{{category}}</option>
+      </select>
+    </div>
+    <div class="mb-3">
+      <label for="imageUrl" class="form-label">Image URL</label>
+      <input type="text" class="form-control" id="imageUrl" [(ngModel)]="movie.imageUrl" name="imageUrl">
+      <small class="text-muted">Must be a valid URL starting with http:// or https://</small>
+    </div>
+    <div class="modal-footer">
+      <button type="button" class="btn btn-secondary" (click)="activeModal.dismiss()">Cancel</button>
+      <button type="submit" class="btn btn-primary">Save Changes</button>
+    </div>
+  </form>
+</div>
