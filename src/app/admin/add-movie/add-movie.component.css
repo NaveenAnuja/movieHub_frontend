@@ -1,0 +1,86 @@
+.container-fluid{
+    background-image: url('/back3.jpg');
+    background-blend-mode: overlay;
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+    min-height: 100vh;
+    color: rgb(239, 237, 237); 
+    background-color: #333;
+}
+
+h1 {
+    font-size: 3rem;
+    font-family: "Abril Fatface", serif;
+    font-weight: bold;
+    margin-top: 10px;
+    margin-left: 10px;
+    letter-spacing: 1px;
+    color: rgb(145, 220, 220);
+    animation: fadeInSlideDown 2s ease-in-out; 
+}
+
+@keyframes fadeInSlideDown {
+    0% {
+        opacity: 0;
+        transform: translateY(-50px);
+    }
+    100% {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+.form-label {
+    font-weight: bold;
+    font-size: 1.2rem;
+    color: #aca1a1;
+}
+
+.form-control {
+    width: 100%;
+    margin-bottom: 15px;
+    background: rgba(255, 255, 255, 0.9); 
+    border: 1px solid #ccc;
+    padding: 10px;
+    border-radius: 5px;
+}
+
+.form-control:focus {
+    border-color: #007bff;
+    box-shadow: 0 0 5px rgba(0, 123, 255, 0.5);
+}
+
+/* Button Styling */
+button {
+    padding: 10px 20px;
+    font-size: 1rem;
+    font-weight: bold;
+    border-radius: 5px;
+    transition: background-color 0.3s ease-in-out;
+}
+
+button.btn-primary {
+    background-color: #007bff;
+    border: none;
+    color: white;
+}
+
+button.btn-primary:hover {
+    background-color: #0056b3;
+}
+
+button.btn-dark {
+    background-color: #333;
+    border: none;
+    color: white;
+}
+
+button.btn-dark:hover {
+    background-color: #000;
+}
+
+/* Responsive Widths */
+.w-75 {
+    width: 75% !important;
+}

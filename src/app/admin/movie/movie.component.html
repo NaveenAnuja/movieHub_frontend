@@ -1,0 +1,100 @@
+<div class="container-fluid">
+    <div class="container d-flex flex-column justify-content-center align-items-center" style="min-height: 100vh;">
+        <div class="row">
+            <h1 id="title">Movie List</h1><br>
+        </div>
+
+        <div class="row w-100 align-items-center mb-3" style="max-width: 800px;">
+            <div class="col">
+                <div class="input-group" style="max-width: 700px;">
+                    <input type="text" class="form-control" placeholder="Enter movie ID or name"
+                        [(ngModel)]="searchValue" (keyup.enter)="searchMovie()" style="font-size: 1.2rem;">
+                    <button class="btn btn-primary" (click)="searchMovie()">Search</button>
+                    
+                    <select class="form-select" [(ngModel)]="selectedCategory" (change)="searchByCategory()" style="max-width: 150px;">
+                        <option [ngValue]="null">All Categories</option>
+                        <option *ngFor="let category of categories" [value]="category">
+                            {{ category }}
+                        </option>
+                    </select>
+                </div>
+            </div>
+
+            <div class="col-auto">
+                <button class="btn btn-success" routerLink="/addMovie">Add Movie</button>
+            </div>
+        </div>
+
+        <div class="table-responsive">
+            <table id="movieList" class="table table-hover">
+                <thead>
+                    <tr>
+                        <th>ID</th>
+                        <th>Name</th>
+                        <th>Description</th>
+                        <th>Rate</th>
+                        <th>Category</th>
+                        <th>Image</th>
+                        <th>Action</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr *ngFor="let movie of movieList;">
+                        <td>{{ movie.id }}</td>
+                        <td>{{ movie.movieName }}</td>
+                        <td>{{ movie.description }}</td>
+                        <td>{{ movie.rate }}</td>
+                        <td>{{ movie.category }}</td>
+                        <td>
+                            <img [src]="movie.imageUrl" alt="Movie poster" style="max-height: 50px;">
+                        </td>
+                        <td>
+                            <button class="btn btn-primary me-2" (click)="openEditModal(movie)">
+                                <i class="bi bi-pencil-square"></i> Edit
+                            </button>
+                            <button class="btn btn-danger" (click)="deleteMovie(movie.id)">
+                                <i class="bi bi-trash3"></i> Delete
+                            </button>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+
+        <nav *ngIf="totalPages > 1">
+            <ul class="pagination">
+                <li class="page-item" [class.disabled]="currentPage === 0">
+                    <a class="page-link" (click)="onPageChange(currentPage - 1)">Previous</a>
+                </li>
+                <li class="page-item" [class.active]="0 === currentPage">
+                    <a class="page-link" (click)="onPageChange(0)">1</a>
+                </li>
+                <li class="page-item disabled" *ngIf="currentPage > 3">
+                    <a class="page-link">...</a>
+                </li>
+                <ng-container *ngFor="let page of getPagesArray()">
+                    <li class="page-item" [class.active]="page === currentPage">
+                        <a class="page-link" (click)="onPageChange(page)">{{ page + 1 }}</a>
+                    </li>
+                </ng-container>
+                <li class="page-item disabled" *ngIf="currentPage < totalPages - 4">
+                    <a class="page-link">...</a>
+                </li>
+                <li class="page-item" [class.active]="totalPages - 1 === currentPage"
+                    *ngIf="totalPages > 1 && currentPage < totalPages - 3">
+                    <a class="page-link" (click)="onPageChange(totalPages - 1)">{{ totalPages }}</a>
+                </li>
+                <li class="page-item" [class.disabled]="currentPage === totalPages - 1">
+                    <a class="page-link" (click)="onPageChange(currentPage + 1)">Next</a>
+                </li>
+            </ul>
+        </nav>
+
+        <button class="btn btn-warning" (click)="loadMovieInfo(0, pageSize)">Reload All</button>
+    </div>
+
+    <div class="d-flex justify-content-end">
+        <button class="btn btn-secondary" routerLink="/admin"
+            style="margin-right: 20px; margin-bottom: 10px;">Back</button>
+    </div>
+</div>

@@ -1,0 +1,78 @@
+#button {
+    width: 200px;
+    font-size: 1.4rem;
+    font-weight: bold;
+    color: #fff;
+    padding: 12px 20px;
+    margin: 10px 0;
+    background: linear-gradient(135deg, #c7d715, #0056b3);
+    border: none;
+    border-radius: 8px;
+    transition: transform 0.2s ease, box-shadow 0.2s ease, background 0.2s ease;
+    box-shadow: 0 6px 15px rgba(0, 0, 0, 0.3);
+    cursor: pointer;
+}
+
+#button:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 10px 20px rgba(0, 0, 0, 0.4);
+    background: linear-gradient(135deg, #107137, #b15168);
+}
+
+#button:active {
+    transform: translateY(2px);
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.3);
+    background: linear-gradient(135deg, #003d80, #0056b3);
+}
+
+h2 {
+    font-size: 3rem;
+    font-family: "Abril Fatface", serif;
+    font-weight: bold;
+    margin-top: 10px;
+    margin-left: 10px;
+    letter-spacing: 1px;
+    color: rgb(145, 220, 220);
+    animation: fadeInSlideDown 2s ease-in-out; 
+}
+
+@keyframes fadeInSlideDown {
+    0% {
+        opacity: 0;
+        transform: translateY(-50px);
+    }
+    100% {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+.video-background {
+    position: fixed; 
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    overflow: hidden;
+    z-index: -1; 
+}
+
+.video-background video {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    min-width: 100%;
+    min-height: 100%;
+    object-fit: cover;
+    filter: blur(5px); 
+    transform: translate(-50%, -50%);
+}
+
+.container {
+    position: relative;
+    z-index: 1; 
+    color: white;
+    margin-top: 20px;
+    padding: 20px; 
+}

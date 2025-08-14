@@ -1,0 +1,15 @@
+<div class="container-fluid">
+    <br>
+    <div class="row">
+        <app-nav-bar></app-nav-bar>
+    </div>
+    <br>
+    <p class="desc" style="font-size: 2rem; font-family:'Merriweather', serif;">"Delve into the spine-chilling world of Horror Movies, where fear and suspense reign. From supernatural thrills to psychological terror, these films are sure to keep you on the edge of your seat."</p><br>
+    <div class="row row-cols-1 row-cols-sm-2 row-cols-md-3 g-3">
+
+        <div *ngFor="let movie of movieList" class="col">
+            <app-movie-item [movieInfo]="movie"></app-movie-item>
+        </div>
+
+    </div>
+</div>

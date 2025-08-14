@@ -1,0 +1,26 @@
+<div class="container-fluid d-flex flex-column justify-content-center align-items-center" style="min-height: 100vh;">
+    <h1 id="title" class="text-center">Edit User</h1><br>
+
+    <div class="form-container" id="text">
+        <div class="mb-3">
+            <label for="txtFirstName" class="form-label">ID</label>
+            <input type="text" disabled class="form-control" id="txtFirstName" [(ngModel)]="data.id" style="max-width: 40%;">
+        </div>
+        <div class="mb-3">
+            <label for="txtLastName" class="form-label">Name</label>
+            <input type="text" class="form-control" id="txtLastName" [(ngModel)]="data.name" placeholder="Enter your Name">
+        </div>
+        <div class="mb-3">
+            <label for="txtAge" class="form-label">Email</label>
+            <input type="text" class="form-control" id="txtAge" [(ngModel)]="data.email" placeholder="Enter your email" readonly>
+        </div>
+       
+    </div>
+
+    <br><br>
+
+    <div class="d-flex w-100 justify-content-end gap-3">
+        <button type="button" class="btn btn-primary" (click)="updateUsers()">Update</button>
+        <button class="btn btn-dark" routerLink="/popular">Back</button>
+    </div>
+</div>

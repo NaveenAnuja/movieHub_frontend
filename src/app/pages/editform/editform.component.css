@@ -1,0 +1,80 @@
+.container-fluid {
+    background-image: url('/editForm.avif'); /* Ensure the correct path */
+    background-blend-mode: overlay;
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+    min-height: 100vh;
+    padding: 20px;
+    position: relative;
+    color: white;
+}
+
+h1 {
+    font-size: 3rem;
+    font-family: "Abril Fatface", serif;
+    font-weight: bold;
+    margin-top: 10px;
+    letter-spacing: 1px;
+    color: rgb(145, 222, 222);
+    animation: fadeInSlideDown 2s ease-in-out;
+}
+
+@keyframes fadeInSlideDown {
+    0% {
+        opacity: 0;
+        transform: translateY(-50px);
+    }
+    100% {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+.form-container {
+    background: rgba(0, 0, 0, 0.6); 
+    padding: 20px;
+    border-radius: 8px;
+    max-width: 600px;
+    width: 100%;
+}
+
+.form-label {
+    font-weight: bold;
+    font-size: 1.2rem;
+}
+
+.form-control {
+    width: 100%;
+    margin-bottom: 15px;
+    background: rgba(255, 255, 255, 0.9); 
+    border: 1px solid #ccc;
+    padding: 10px;
+    border-radius: 5px;
+}
+
+
+button {
+    padding: 10px 20px;
+    font-weight: bold;
+    margin-right: 30px;
+    align-items: end;
+    border: none;
+    border-radius: 5px;
+}
+
+.btn-primary {
+    background-color: #007bff;
+    color: white;
+}
+
+.btn-dark {
+    background-color: #343a40;
+    color: white;
+}
+
+.container {
+    z-index: 1;
+    background-color: #333; 
+    margin-top: 20px;
+}

@@ -1,0 +1,11 @@
+
+.container-fluid{
+    background-image: url('/suggestions.jpg');
+    background-blend-mode: overlay;
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+    min-height: 100vh;
+    color: rgb(239, 237, 237); 
+    background-color: #333;
+}

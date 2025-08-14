@@ -1,0 +1,26 @@
+<div class="container-fluid d-flex flex-column justify-content-center align-items-center" style="min-height: 100vh;">
+    <div class="row">
+        <h1 id="title">ADD MOVIE</h1><br>
+    </div>
+    <div class="mb-3 w-75">
+        <label for="movieName" class="form-label">Movie Name</label>
+        <input type="text" class="form-control" id="movieName" [(ngModel)]="movie.name" placeholder="Enter the Movie Name">
+    </div>
+    <div class="mb-3 w-75">
+        <label for="description" class="form-label">Description</label>
+        <textarea class="form-control" id="description" rows="3" [(ngModel)]="movie.description" placeholder="Enter the Movie Description"></textarea>
+    </div>
+    <div class="mb-3 w-75">
+        <label for="rate" class="form-label">Rate</label>
+        <input type="number" class="form-control" id="rate"  [(ngModel)]="movie.rate" placeholder="Enter the Movie Rate">
+    </div>
+    <div class="mb-3 w-75">
+        <label for="category" class="form-label">Category</label>
+        <input type="text" class="form-control" id="category" [(ngModel)]="movie.category" placeholder="Enter the Movie Category">
+    </div>
+<br>
+    <div class="d-flex w-75 justify-content-end gap-3">
+        <button type="button" class="btn btn-success" (click)="addMovie()" [disabled]="!movie.name || !movie.description || !movie.rate || !movie.category">Add</button>
+        <button class="btn btn-dark" routerLink="/movie" style="margin-left: 25px;">Back</button>
+    </div>
+</div>

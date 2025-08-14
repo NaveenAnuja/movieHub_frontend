@@ -1,0 +1,51 @@
+<div class="container-fluid">
+    <div class="container d-flex flex-column justify-content-center align-items-center" style="min-height: 100vh;">
+        <div class="row">
+            <h1 id="title">Comment List</h1><br>
+        </div>
+        <div class="input-group mb-3" style="max-width: 500px;">
+            <input type="text" class="form-control" placeholder="Enter Comment Id" id="commentId"
+                [(ngModel)]="suggetionId" (keyup.Enter)="searchComment()" style="font-size: 1.2rem;">
+            <button class="btn btn-primary" (click)="searchComment()">Search</button>
+        </div>
+
+        <table id="commentList" class="table table-hover">
+            <thead>
+                <tr>
+                    <th>Suggestion ID</th>
+                    <th>User ID</th>
+                    <th>User Name</th>
+                    <th>Movie ID</th>
+                    <th>Movie Name</th>
+                    <th>Comment</th>
+                    <th>Date</th>
+                    <th>Time</th>
+                    <th>Action</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr *ngFor="let suggestion of suggestionList;">
+                    <td>{{ suggestion.id }}</td>
+                    <td>{{ getUserId(suggestion) }}</td>
+                    <td>{{ getUserName(suggestion) }}</td>
+                    <td>{{ getMovieId(suggestion) }}</td>
+                    <td>{{ getMovieName(suggestion) }}</td>
+                    <td>{{ suggestion.comment }}</td>
+                    <td>{{ formatDate(suggestion.updatedAt) }}</td>
+                    <td>{{ formatTime(suggestion.updatedAt) }}</td>
+                    <td>
+                        <button class="btn btn-danger" (click)="deleteSuggetions(suggestion.id)">
+                            <i class="bi bi-trash3"></i>
+                        </button>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+        <button class="btn btn-warning" (click)="loadList()">Reload</button>
+    </div>
+
+    <div class="d-flex justify-content-end">
+        <button class="btn btn-secondary" routerLink="/admin"
+            style="margin-right: 20px; margin-bottom: 10px;">Back</button>
+    </div>
+</div>

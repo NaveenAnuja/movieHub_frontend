@@ -1,0 +1,15 @@
+<div class="container-fluid">
+    <br>
+    <div class="row">
+        <app-nav-bar></app-nav-bar>
+    </div>
+    <br><br>
+    <p class="desc" style="font-size: 2rem; font-family:'Merriweather', serif;">Step into the world of Thriller Movies , where suspense, intrigue, and unexpected twists keep you on the edge of your seat. Experience heart-pounding moments and gripping stories that will leave you guessing until the very end!</p><br>
+    <div class="row row-cols-1 row-cols-sm-2 row-cols-md-3 g-3">
+
+        <div *ngFor="let movie of movieList"class="col">
+            <app-movie-item [movieInfo]="movie"></app-movie-item>
+        </div>
+
+    </div>
+</div>

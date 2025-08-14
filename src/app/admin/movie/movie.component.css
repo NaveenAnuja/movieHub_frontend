@@ -1,0 +1,115 @@
+h1 {
+    font-size: 3rem;
+    font-family: "Abril Fatface", serif;
+    font-weight: bold;
+    margin-top: 10px;
+    margin-left: 10px;
+    letter-spacing: 1px;
+    color: rgb(145, 220, 220);
+    animation: fadeInSlideDown 2s ease-in-out; 
+}
+
+@keyframes fadeInSlideDown {
+    0% {
+        opacity: 0;
+        transform: translateY(-50px);
+    }
+    100% {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+#movieList {
+    border-collapse: collapse; 
+    width: 100%; 
+}
+#movieList th, #movieList td {
+    border: 2px solid #201e1e;
+    padding: 8px;
+    text-align: left; 
+}
+
+#movieList th {
+    background-color: #f2f2f2;
+    font-weight: bold;
+}
+
+#movieList tr:nth-child(even) {
+    background-color: #f9f9f9; 
+}
+
+#movieList td button {
+    display: inline-block;
+    margin-top: 10px; 
+}
+
+.container-fluid{
+    background-image: url('/back3.jpg');
+    background-blend-mode: overlay;
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+    min-height: 100vh;
+    color: rgb(239, 237, 237); 
+    background-color: #333;
+}
+
+.pagination {
+  flex-wrap: wrap;
+}
+
+.page-item {
+  margin: 2px;
+}
+
+.page-link {
+  cursor: pointer;
+}
+
+.input-group {
+  display: flex;
+  flex-wrap: nowrap;
+}
+
+.form-select {
+  border-top-left-radius: 0;
+  border-bottom-left-radius: 0;
+  margin-left: -1px;
+}
+
+.input-group > :not(:first-child):not(:last-child) {
+  margin-right: 8px;
+}
+
+.btn-primary {
+  border-top-right-radius: 0;
+  border-bottom-right-radius: 0;
+}
+
+.table {
+  font-size: 0.9rem;
+}
+
+.table th, .table td {
+  padding: 0.5rem;
+}
+
+.pagination {
+  flex-wrap: wrap;
+  justify-content: center;
+}
+
+.page-item {
+  margin: 2px;
+}
+
+.page-link {
+  cursor: pointer;
+}
+
+img {
+  max-height: 50px;
+  max-width: 80px;
+  object-fit: cover;
+}

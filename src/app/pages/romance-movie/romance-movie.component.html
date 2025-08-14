@@ -1,0 +1,15 @@
+<div class="container-fluid">
+    <br>
+    <div class="row">
+        <app-nav-bar></app-nav-bar>
+    </div>
+    <br>
+    <p class="desc" style="font-size: 2rem; font-family:'Merriweather', serif;">"Experience the magic of Romance Movies, where love takes center stage. From heartwarming tales to passionate dramas, these films celebrate the beauty of connection and emotion."</p><br>
+    <div class="row row-cols-1 row-cols-sm-2 row-cols-md-3 g-3">
+
+        <div *ngFor="let movie of movieList" class="col">
+            <app-movie-item [movieInfo]="movie"></app-movie-item>
+        </div>
+
+    </div>
+</div>

@@ -1,0 +1,17 @@
+<div class="container-fluid">
+    <br>
+    <div class="row">
+        <app-nav-bar></app-nav-bar>
+    </div>
+    <br><br>
+
+    <p class="desc" style="font-size: 2rem; font-family:'Merriweather', serif;">"Discover the magic of Kids' Movies, filled with fun, adventure, and heartwarming stories. Perfect for young viewers, these films bring laughter and imagination to life!"</p><br>
+
+    <div class="row row-cols-1 row-cols-sm-2 row-cols-md-3 g-3">
+
+        <div *ngFor="let movie of movieList" class="col">
+            <app-movie-item [movieInfo]="movie"></app-movie-item>
+        </div>
+
+    </div>
+</div>

@@ -1,0 +1,9 @@
+export enum MovieCategory {
+  POPULAR = 'POPULAR',
+  KIDS = 'KIDS',
+  DRAMA = 'DRAMA',
+  HORROR = 'HORROR',
+  ROMANCE = 'ROMANCE',
+  THRILLER = 'THRILLER',
+  ANIMATION = 'ANIMATION',
+}

@@ -1,0 +1,70 @@
+h1 {
+    font-size: 3rem;
+    font-family: "Abril Fatface", serif;
+    font-weight: bold;
+    margin-top: 10px;
+    margin-left: 10px;
+    letter-spacing: 1px;
+    color: rgb(145, 220, 220);
+    animation: fadeInSlideDown 2s ease-in-out; 
+}
+
+@keyframes fadeInSlideDown {
+    0% {
+        opacity: 0;
+        transform: translateY(-50px);
+    }
+    100% {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+#movieList {
+    border-collapse: collapse; 
+    width: 100%; 
+}
+#movieList th, #movieList td {
+    border: 2px solid #201e1e;
+    padding: 8px;
+}
+
+#movieList td{
+    text-align: center;
+}
+
+#movieList th{
+    text-align: center;
+}
+
+#movieList th {
+    background-color: #f2f2f2;
+    font-weight: bold;
+}
+
+#movieList tr:nth-child(even) {
+    background-color: #f9f9f9; 
+}
+
+#movieList td button {
+    display: inline-block;
+    margin-top: 10px; 
+}
+
+button{
+        justify-content: center;
+        align-items: center;
+        margin-right: 30px;
+}
+
+
+.container-fluid{
+    background-image: url('/back2.jpg');
+    background-blend-mode: overlay;
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+    min-height: 100vh;
+    color: rgb(239, 237, 237); 
+    background-color: #333;
+}

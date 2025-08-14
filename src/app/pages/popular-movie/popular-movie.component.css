@@ -1,0 +1,61 @@
+h1 {
+    font-size: 4rem;
+    font-family: "Abril Fatface", serif;
+    font-weight: bold;
+    margin-top: 10px;
+    margin-left: 10px;
+    letter-spacing: 1px;
+    color: rgb(192, 203, 190);
+    animation: fadeInSlideDown 3s ease-in-out; 
+    justify-content: center;
+}
+
+@keyframes fadeInSlideDown {
+    0% {
+        opacity: 0;
+        transform: translateY(-50px);
+    }
+    100% {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+.container{
+    background-color: rgb(40, 38, 38);
+}
+
+.carousel-item{
+    min-height: 50vh;
+}
+
+.container-fluid{
+    background-image: url('/back3.jpg');
+    background-blend-mode: overlay;
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+    min-height: 100vh;
+    color: white; 
+} 
+
+.desc {
+    position: relative;
+    opacity: 0;
+    transform: scale(0.5);
+    animation: zoomInEffect 1.5s ease-out forwards;
+}
+
+@keyframes zoomInEffect {
+    0% {
+        opacity: 0;
+        transform: scale(0.5);
+    }
+    100% {
+        opacity: 1;
+        transform: scale(1);
+    }
+}
+
+
+

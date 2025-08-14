@@ -1,0 +1,28 @@
+.container-fluid{
+    background-image: url('/back3.jpg');
+    background-blend-mode: overlay;
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+    min-height: 100vh;
+    color: white; 
+} 
+
+.desc {
+    position: relative;
+    opacity: 0;
+    transform: scale(0.5);
+    animation: zoomInEffect 1.5s ease-out forwards;
+    color: aliceblue;
+}
+
+@keyframes zoomInEffect {
+    0% {
+        opacity: 0;
+        transform: scale(0.5);
+    }
+    100% {
+        opacity: 1;
+        transform: scale(1);
+    }
+}
