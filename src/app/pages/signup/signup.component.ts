@@ -70,7 +70,7 @@ export class SignupComponent {
               timer: 2000,
               showConfirmButton: false
             }).then(() => {
-              this.router.navigate(['/popular']);
+              this.router.navigate(['/login']);
             });
           });
       }

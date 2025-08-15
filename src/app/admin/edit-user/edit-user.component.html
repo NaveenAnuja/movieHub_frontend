@@ -1,0 +1,38 @@
+<div class="modal-header">
+  <h4 class="modal-title">Edit User</h4>
+  <button type="button" class="btn-close" aria-label="Close" (click)="activeModal.dismiss()"></button>
+</div>
+
+<div class="modal-body">
+  <form (ngSubmit)="updateUser()">
+    <div class="mb-3">
+      <label class="form-label">User ID</label>
+      <input type="text" class="form-control" [value]="user.id" disabled>
+    </div>
+
+    <div class="mb-3">
+      <label class="form-label">Email</label>
+      <input type="text" class="form-control" [value]="user.email" disabled>
+    </div>
+
+    <div class="mb-3">
+      <label class="form-label">User Name</label>
+      <input type="text" class="form-control" [(ngModel)]="user.name" name="name">
+    </div>
+
+    <div class="mb-3">
+      <label class="form-label">Created Date</label>
+      <input type="text" class="form-control" [value]="formatDate(user.createdAt)" disabled>
+    </div>
+
+    <div class="mb-3">
+      <label class="form-label">Last Updated</label>
+      <input type="text" class="form-control" [value]="formatTime(user.updatedAt)" disabled>
+    </div>
+
+    <div class="modal-footer">
+      <button type="button" class="btn btn-secondary" (click)="activeModal.dismiss()">Cancel</button>
+      <button type="submit" class="btn btn-primary">Save Changes</button>
+    </div>
+  </form>
+</div>

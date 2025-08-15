@@ -4,26 +4,30 @@ import { HttpClient } from '@angular/common/http';
 import { environment } from '../../../../enviroment';
 import Swal from 'sweetalert2';
 import { FormsModule } from '@angular/forms';
-
+import { CommonModule } from '@angular/common';
+import { MovieCategory } from '../movie/movieCategory.enum';
 
 @Component({
   selector: 'app-edit-movie-modal',
   standalone: true,
-  imports: [FormsModule],
+  imports: [FormsModule, CommonModule],
   templateUrl: './edit-movie.component.html',
   styleUrls: ['./edit-movie.component.css']
 })
 export class EditMovieComponent {
   @Input() movie: any;
-  public categories = ['POPULAR', 'TRENDING', 'NEW_RELEASES', 'TOP_RATED'];
+  public movieCategories = Object.values(MovieCategory); 
 
-  constructor(public activeModal: NgbActiveModal, private http: HttpClient) {}
+  constructor(
+    public activeModal: NgbActiveModal,
+    private http: HttpClient
+  ) {}
 
   updateMovie() {
     const updateRequest = {
       description: this.movie.description,
       rate: this.movie.rate,
-      category: this.movie.category,
+      movieCategory: this.movie.movieCategory, 
       imageUrl: this.movie.imageUrl
     };
 
@@ -38,15 +42,18 @@ export class EditMovieComponent {
           });
           this.activeModal.close('updated');
         },
-        error: (error) => {
+        error: () => {
           Swal.fire({
             icon: 'error',
             title: 'Error updating movie',
-            text: error.message,
             timer: 2000,
             showConfirmButton: true
           });
         }
       });
+  }
+  
+  getCategoryDisplayName(movieCategory: string): string {
+    return movieCategory.replace(/_/g, ' '); 
   }
 }

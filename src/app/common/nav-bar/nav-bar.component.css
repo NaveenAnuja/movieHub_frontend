@@ -1,38 +1,101 @@
+.navbar-container {
+  padding: 0.5rem 1rem;
+}
+
 .nav-list {
-    list-style: none;
-    padding: 0;
-    margin: 0;
-    display: flex;
-    gap: 15px;
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  display: flex;
+  gap: 10px;
+}
+
+.nav-list .nav-link {
+  color: #333;
+  font-weight: bold;
+  font-size: 1rem;
+  text-decoration: none;
+  padding: 5px 10px;
+  border-radius: 5px;
+  background-color: #f5f5f5;
+  transition: transform 0.2s ease, background-color 0.3s, color 0.3s;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
+}
+
+.nav-list .nav-link:hover {
+  color: #fff;
+  background-color: #5b8aae;
+  transform: translateY(-3px);
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.3);
+}
+
+.btn-search {
+  background-color: transparent;
+  transition: all 0.3s ease;
+}
+
+.btn-search:hover {
+  background-color: rgba(255, 255, 255, 0.1);
+}
+
+.left-buttons {
+  display: flex;
+  align-items: center;
+}
+
+@media (max-width: 992px) {
+  .navbar-container .d-flex {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+  
+  .nav-list {
+    flex-wrap: wrap;
+    margin: 10px 0;
+  }
+  
+  .d-flex.align-items-center {
+    width: 100%;
+    justify-content: space-between;
+    margin-top: 10px;
+  }
+}
+
+@media (max-width: 768px) {
+  .left-buttons {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 10px;
+  }
+  
+  .nav-list {
+    gap: 8px;
   }
   
   .nav-list .nav-link {
-    color: #333;
-    font-weight: bold;
-    font-size: 1.2rem;
-    text-decoration: none;
-    padding: 5px 6px;
-    border-radius: 5px;
-    background-color: #f5f5f5;
-    transition: transform 0.2s ease, background-color 0.3s, color 0.3s;
-    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
+    font-size: 0.9rem;
+    padding: 5px 8px;
   }
   
-  .nav-list .nav-link:hover {
-    color: #fff;
-    background-color: #5b8aae;
-    transform: translateY(-3px);
-    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.3);
+  .btn-search, .btn-success, .btn-danger {
+    font-size: 1rem !important;
+    padding: 5px 10px;
+  }
+}
+
+@media (max-width: 576px) {
+  .nav-list {
+    flex-direction: column;
+    gap: 5px;
   }
   
-  .nav-list .nav-link.active {
-    color: #fff;
-    background-color: #007bff;
+  .d-flex.align-items-center {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 10px;
   }
   
-  @media (max-width: 768px) {
-    .nav-list {
-      flex-direction: column;
-      gap: 10px;
-    }
+  .left-buttons {
+    margin-bottom: 10px;
   }
+}

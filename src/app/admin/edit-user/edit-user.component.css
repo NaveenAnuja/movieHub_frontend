@@ -11,13 +11,6 @@
   font-weight: bold;
 }
 
-img {
-  max-width: 100px;
-  max-height: 100px;
-  display: block;
-  margin: 0 auto;
-}
-
 select.form-select {
   display: block;
   width: 100%;

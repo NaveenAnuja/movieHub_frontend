@@ -1,32 +1,37 @@
-<div class="container-fluid" style="margin-right: 30px; margin-top: 5px;">
-  <div class="d-flex flex-wrap align-items-center justify-content-center justify-content-lg-start">
-    <a href="/" class="d-flex align-items-center mb-2 mb-lg-0 text-white text-decoration-none">
-      <svg class="bi me-2" width="40" height="32" role="img" aria-label="Bootstrap">
-        <use xlink:href="#bootstrap" />
-      </svg>
-    </a>
+<div class="container-fluid navbar-container" style="margin-right: 30px; margin-top: 5px;">
+  <div class="d-flex flex-wrap align-items-center justify-content-between">
+    <!-- Left side - Logo and Nav Links -->
+    <div class="d-flex flex-wrap align-items-center">
+      <a href="/" class="d-flex align-items-center mb-2 mb-lg-0 text-white text-decoration-none me-4">
+        <svg class="bi me-2" width="40" height="32" role="img" aria-label="Bootstrap">
+          <use xlink:href="#bootstrap" />
+        </svg>
+      </a>
 
-    <ul class="nav-list nav col-12 col-lg-auto me-lg-auto mb-2 justify-content-center mb-md-0">
-      <li><a routerLink="/popular" class="nav-link px-2"><span>Popular</span></a></li>
-      <li><a routerLink="/thriller" class="nav-link px-2"><span>Thriller</span></a></li>
-      <li><a routerLink="/kids" class="nav-link px-2"><span>Kids</span></a></li>
-      <li><a routerLink="/drama" class="nav-link px-2"><span>Drama</span></a></li>
-      <li><a routerLink="/romance" class="nav-link px-2"><span>Romance</span></a></li>
-      <li><a routerLink="/horror" class="nav-link px-2"><span>Horror</span></a></li>
-      <li><a routerLink="/animation" class="nav-link px-2"><span>Animation</span></a></li>
+      <ul class="nav-list nav col-12 col-lg-auto mb-2 mb-md-0">
+        <li><a routerLink="/popular" class="nav-link px-2"><span>Popular</span></a></li>
+        <li><a routerLink="/thriller" class="nav-link px-2"><span>Thriller</span></a></li>
+        <li><a routerLink="/kids" class="nav-link px-2"><span>Kids</span></a></li>
+        <li><a routerLink="/drama" class="nav-link px-2"><span>Drama</span></a></li>
+        <li><a routerLink="/romance" class="nav-link px-2"><span>Romance</span></a></li>
+        <li><a routerLink="/horror" class="nav-link px-2"><span>Horror</span></a></li>
+        <li><a routerLink="/animation" class="nav-link px-2"><span>Animation</span></a></li>
+      </ul>
+    </div>
 
-    </ul>
-    <form class="col-12 col-lg-auto mb-3 mb-lg-0 me-lg-3" role="search">
-      <button type="button" class="btn btn-search" aria-label="Search" id="search" routerLink="/search"
-        style="font-size: 1.2rem; font-weight: bold; border-radius: 20px; color: aliceblue; border-color: rgb(255, 255, 255);">
-        🔍 Search
-      </button>
-    </form>
-
-    <div class="text-end">
-      <button type="button" class="btn btn-success me-3" style="font-size: 1.4rem;" routerLink="/edit">Edit
-        Info</button>
+    <div class="d-flex align-items-center">
+      <div class="left-buttons me-3">
+        <button type="button" class="searchButton" class="btn btn-search me-2" aria-label="Search" id="search" routerLink="/search"
+          style="font-size: 1.2rem; font-weight: bold; border-radius: 20px; color: aliceblue; border-color: rgb(255, 255, 255);">
+          🔍 Search
+        </button>
+        <button type="button" class="editButton" class="btn btn-success" style="font-size: 1.2rem;" routerLink="/edit">Edit Info</button>
+      </div>
+      <div class="logout-button">
+        <button type="button" class="btn btn-danger" (click)="logout()" style="font-size: 1.2rem;">
+          Logout
+        </button>
+      </div>
     </div>
   </div>
-
 </div>

@@ -30,12 +30,12 @@
           <td>{{ formatTime(user.createdAt || user.updatedAt) }}</td>
 
           <td>
-            <button class="btn btn-primary me-2" [routerLink]="">
-              <i class="bi bi-pencil-square"></i>
+            <button class="btn btn-primary me-2" (click)="openEditUser(user)">
+              <i class="bi bi-pencil-square"></i> Edit
             </button>
 
             <button class="btn btn-danger" (click)="deleteUsers(user.id)">
-              <i class="bi bi-trash3"></i>
+              <i class="bi bi-trash3"></i> Delete
             </button>
           </td>
         </tr>

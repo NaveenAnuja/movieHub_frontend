@@ -3,8 +3,11 @@ import { HttpClient, HttpClientModule } from '@angular/common/http';
 import { CommonModule, NgFor } from '@angular/common';
 import { RouterLink } from '@angular/router';
 import { FormsModule } from '@angular/forms';
+import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { environment } from '../../../../enviroment';
 import Swal from 'sweetalert2';
+import { User } from '../models/user.model';
+import { EditUserComponent } from '../edit-user/edit-user.component';
 
 @Component({
   selector: 'app-users',
@@ -19,7 +22,7 @@ export class UsersComponent {
   public selectedUser: any = {};
   public userId: string = '';
 
-  constructor(private http: HttpClient) {
+  constructor(private http: HttpClient,private modalService: NgbModal) {
     this.loadUsers();
   }
 
@@ -134,6 +137,16 @@ export class UsersComponent {
         }
       });
   }
+
+    openEditUser(user: User): void {
+      const modalRef = this.modalService.open(EditUserComponent, { size: 'lg' });
+      modalRef.componentInstance.user = user;
+  
+      modalRef.result.then(
+        (result) => result === 'updated' && this.loadUsers(),
+        () => { }
+      );
+    }
 
   formatDate(dateString: string): string {
     if (!dateString) return 'N/A';

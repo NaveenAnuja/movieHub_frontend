@@ -15,40 +15,37 @@ import { Movie } from '../models/movie.model';
   selector: 'app-movie',
   standalone: true,
   imports: [
-    NgFor, 
-    MovieItemComponent, 
-    RouterLink, 
-    FormsModule, 
+    NgFor,
+    MovieItemComponent,
+    RouterLink,
+    FormsModule,
     CommonModule
   ],
   templateUrl: './movie.component.html',
   styleUrls: ['./movie.component.css']
 })
 export class MovieComponent implements OnInit {
-  // Component state
+
   movieList: Movie[] = [];
   searchValue = '';
   selectedCategory: MovieCategory | null = null;
-  
-  // Pagination
+
   currentPage = 0;
   pageSize = 10;
   totalPages = 0;
   totalItems = 0;
 
-  // Constants
   readonly categories = Object.values(MovieCategory);
 
   constructor(
     private http: HttpClient,
     private modalService: NgbModal
-  ) {}
+  ) { }
 
   ngOnInit(): void {
     this.loadMovies();
   }
 
-  // Main data loading method
   loadMovies(page: number = this.currentPage, size: number = this.pageSize): void {
     this.http.get<MovieResponse>(`${environment.apiBaseUrl}/movie/view/movies/page/${page}/size/${size}`)
       .subscribe({
@@ -57,14 +54,13 @@ export class MovieComponent implements OnInit {
       });
   }
 
-  // Search methods
   searchMovie(): void {
     if (!this.searchValue.trim()) {
       this.resetSearch();
       return;
     }
 
-    const searchMethod = isNaN(Number(this.searchValue)) 
+    const searchMethod = isNaN(Number(this.searchValue))
       ? () => this.searchByName(this.searchValue)
       : () => this.searchById(this.searchValue);
 
@@ -83,30 +79,41 @@ export class MovieComponent implements OnInit {
     }
   }
 
-  // CRUD operations
   deleteMovie(id: number): void {
     this.showDeleteConfirmation().then((confirmed) => {
-      if (confirmed) {
-        this.http.delete(`${environment.apiBaseUrl}/movie/delete/movie/${id}`)
-          .subscribe({
-            next: () => this.handleDeleteSuccess(),
-            error: () => this.showError('Failed to delete movie')
-          });
-      }
+      if (!confirmed) return;
+
+      this.http.delete(`${environment.apiBaseUrl}/movie/delete/movie/${id}`, {
+        observe: 'response',
+        responseType: 'text' as const  
+      }).subscribe({
+        next: (response) => {
+          if (response.status === 200) {
+            this.handleDeleteSuccess();
+          } else {
+            this.showError(`Unexpected status: ${response.status}`);
+          }
+        },
+        error: (error) => {
+          if (error.status === 200 && error.error.text === 'Movie deleted successfully') {
+            this.handleDeleteSuccess();
+          } else {
+            this.showError(error.status === 404 ? 'Movie not found' : 'Failed to delete movie');
+          }
+        }
+      });
     });
   }
-
-  openEditModal(movie: Movie): void {
+  openEditMovie(movie: Movie): void {
     const modalRef = this.modalService.open(EditMovieComponent, { size: 'lg' });
     modalRef.componentInstance.movie = movie;
-    
+
     modalRef.result.then(
       (result) => result === 'updated' && this.loadMovies(),
-      () => {} 
+      () => { }
     );
   }
 
-  // Pagination
   onPageChange(page: number): void {
     this.currentPage = page;
     this.loadMovies(page);
@@ -126,7 +133,6 @@ export class MovieComponent implements OnInit {
     return pages;
   }
 
-  // Private helper methods
   private searchById(id: string): void {
     this.http.get<Movie>(`${environment.apiBaseUrl}/movie/search-by-id/${id}`)
       .subscribe({
@@ -170,7 +176,6 @@ export class MovieComponent implements OnInit {
     this.searchValue = '';
   }
 
-  // Alert helpers
   private showDeleteConfirmation(): Promise<boolean> {
     return Swal.fire({
       title: 'Are you sure?',
@@ -206,7 +211,6 @@ export class MovieComponent implements OnInit {
   }
 }
 
-// Type interfaces
 interface MovieResponse {
   movies: Movie[];
   currentPage: number;
