@@ -1,46 +1,53 @@
 <div class="modal-header bg-dark text-white">
-  <h4 class="modal-title">Edit Suggestion</h4>
-  <button type="button" class="btn-close btn-close-white" aria-label="Close" (click)="activeModal.dismiss()"></button>
+    <h4 class="modal-title">Edit Suggestion</h4>
+    <button type="button" class="btn-close btn-close-white" aria-label="Close" (click)="activeModal.dismiss()"></button>
 </div>
 
 <div class="modal-body">
-  <form (ngSubmit)="updateSuggestion()" *ngIf="suggestion">
-    <div class="row">
-      <div class="col-md-6 mb-3">
-        <label class="form-label">Suggestion ID</label>
-        <input type="text" class="form-control" [value]="suggestion.id" disabled>
-      </div>
+    <form (ngSubmit)="updateSuggestion()" *ngIf="suggestion">
+        <div class="row">
+            <div class="col-md-6 mb-3">
+                <label class="form-label">Suggestion ID</label>
+                <input type="text" class="form-control" [value]="suggestion.id" disabled>
+            </div>
 
-      <div class="col-md-6 mb-3">
-        <label class="form-label">User Name</label>
-        <input type="text" class="form-control" [value]="suggestion.userRequest?.name || 'N/A'" disabled>
-      </div>
-    </div>
+            <div class="col-md-6 mb-3">
+                <label class="form-label">User Name</label>
+                <input type="text" class="form-control" [value]="suggestion.userRequest?.name || 'N/A'" disabled>
+            </div>
+        </div>
 
-    <div class="row">
-      <div class="col-md-6 mb-3">
-        <label class="form-label">Movie Name</label>
-        <input type="text" class="form-control" [value]="suggestion.movieRequest?.movieName || 'N/A'" disabled>
-      </div>
+        <div class="row">
+            <div class="col-md-6 mb-3">
+                <label class="form-label">Movie Name</label>
+                <input type="text" class="form-control" [value]="suggestion.movieRequest?.movieName || 'N/A'" disabled>
+            </div>
 
-      <div class="mb-3">
-      <label class="form-label">Comment</label>
-      <textarea class="form-control" rows="5" [(ngModel)]="suggestion.comment" name="comment" required></textarea>
-    </div>
+            <div class="mb-3">
+                <label class="form-label">Comment</label>
+                <textarea class="form-control" rows="5" [(ngModel)]="suggestion.comment" name="comment"
+                    (input)="validateComment()" [class.is-invalid]="commentError"></textarea>
+                <small class="text-muted">Must be between 5-50 characters</small>
+                <div *ngIf="commentError" class="invalid-feedback">
+                    {{ commentError }}
+                </div>
+            </div>
 
-      <div class="col-md-6 mb-3">
-        <label class="form-label">Created At</label>
-        <input type="text" class="form-control" [value]="(suggestion.createdAt | date:'medium') || 'N/A'" disabled>
-      </div>
-    </div>
+            <div class="col-md-6 mb-3">
+                <label class="form-label">Created At</label>
+                <input type="text" class="form-control" [value]="(suggestion.createdAt | date:'medium') || 'N/A'"
+                    disabled>
+            </div>
+        </div>
 
-    <div class="modal-footer">
-      <button type="button" class="btn btn-outline-secondary" (click)="activeModal.dismiss()">Cancel</button>
-      <button type="submit" class="btn btn-primary" [disabled]="isLoading">
-        <span *ngIf="!isLoading">Save Changes</span>
-        <span *ngIf="isLoading" class="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span>
-        <span *ngIf="isLoading"> Saving...</span>
-      </button>
-    </div>
-  </form>
+        <div class="modal-footer">
+            <button type="button" class="btn btn-outline-secondary" (click)="activeModal.dismiss()">Cancel</button>
+            <button type="submit" class="btn btn-primary" [disabled]="isLoading || commentError">
+                <span *ngIf="!isLoading">Save Changes</span>
+                <span *ngIf="isLoading" class="spinner-border spinner-border-sm" role="status"
+                    aria-hidden="true"></span>
+                <span *ngIf="isLoading"> Saving...</span>
+            </button>
+        </div>
+    </form>
 </div>

@@ -14,12 +14,13 @@ import Swal from 'sweetalert2';
   styleUrls: ['./suggetions.component.css']
 })
 export class SuggetionsComponent implements OnInit {
-
   public comments = {
     comment: '',
     userRequest: { id: '' },
     movieRequest: { id: '' }
   };
+  commentError = '';
+  isSubmitting = false;
 
   constructor(private http: HttpClient, private router: Router) { }
 
@@ -41,16 +42,42 @@ export class SuggetionsComponent implements OnInit {
     }
   }
 
+  validateComment(): boolean {
+    if (!this.comments.comment || this.comments.comment.trim().length === 0) {
+      this.commentError = 'Comment is required';
+      return false;
+    }
+    
+    if (this.comments.comment.length < 5) {
+      this.commentError = 'Comment must be at least 5 characters';
+      return false;
+    }
+    
+    if (this.comments.comment.length > 50) {
+      this.commentError = 'Comment cannot exceed 50 characters';
+      return false;
+    }
+    
+    this.commentError = '';
+    return true;
+  }
+
   public addSuggestion() {
-    if (
-      !this.comments.userRequest.id ||
-      !this.comments.movieRequest.id ||
-      !this.comments.comment.trim()
-    ) {
+    if (!this.validateComment()) {
+      Swal.fire({
+        icon: 'error',
+        title: 'Validation Error',
+        text: this.commentError,
+        confirmButtonColor: '#0d6efd'
+      });
+      return;
+    }
+
+    if (!this.comments.userRequest.id || !this.comments.movieRequest.id) {
       Swal.fire({
         icon: 'warning',
         title: 'Missing Information',
-        text: 'Please fill in all fields before submitting.'
+        text: 'Please select a movie and ensure you are logged in.'
       });
       return;
     }
@@ -64,6 +91,8 @@ export class SuggetionsComponent implements OnInit {
       });
       return;
     }
+
+    this.isSubmitting = true;
 
     const headers = new HttpHeaders({
       Authorization: `Bearer ${token}`,
@@ -87,6 +116,7 @@ export class SuggetionsComponent implements OnInit {
         });
       },
       error: (error) => {
+        this.isSubmitting = false;
         console.error('Detailed Error:', error);
 
         if (error.status === 403) {
@@ -105,9 +135,12 @@ export class SuggetionsComponent implements OnInit {
           Swal.fire({
             icon: 'error',
             title: 'Error adding comment',
-            text: 'Please try again later.'
+            text: error.error?.message || 'Please try again later.'
           });
         }
+      },
+      complete: () => {
+        this.isSubmitting = false;
       }
     });
   }

@@ -16,15 +16,41 @@ import { CommonModule } from '@angular/common';
 export class EditSuggestionComponent {
   @Input() suggestion: any;
   isLoading = false;
+  commentError = '';
 
   constructor(
     public activeModal: NgbActiveModal,
     private http: HttpClient
   ) { }
 
+  validateComment(): boolean {
+    if (!this.suggestion.comment || this.suggestion.comment.trim().length === 0) {
+      this.commentError = 'Comment is required';
+      return false;
+    }
+    
+    if (this.suggestion.comment.length < 5) {
+      this.commentError = 'Comment must be at least 5 characters';
+      return false;
+    }
+    
+    if (this.suggestion.comment.length > 50) {
+      this.commentError = 'Comment cannot exceed 50 characters';
+      return false;
+    }
+    
+    this.commentError = '';
+    return true;
+  }
+
   updateSuggestion() {
-    if (!this.suggestion?.comment?.trim()) {
-      Swal.fire('Error!', 'Comment cannot be empty', 'error');
+    if (!this.validateComment()) {
+      Swal.fire({
+        icon: 'error',
+        title: 'Validation Error',
+        text: this.commentError,
+        confirmButtonColor: '#0d6efd'
+      });
       return;
     }
 
@@ -48,7 +74,12 @@ export class EditSuggestionComponent {
         },
         error: (error) => {
           this.isLoading = false;
-          Swal.fire('Error!', error.error?.message || 'Failed to update suggestion', 'error');
+          Swal.fire({
+            icon: 'error',
+            title: 'Error!',
+            text: error.error?.message || 'Failed to update suggestion',
+            confirmButtonColor: '#0d6efd'
+          });
         },
         complete: () => this.isLoading = false
       });
