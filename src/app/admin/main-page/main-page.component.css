@@ -76,3 +76,36 @@ h2 {
     margin-top: 20px;
     padding: 20px; 
 }
+
+#logout-button {
+    position: fixed;
+    bottom: 30px;
+    right: 30px;
+    width: 150px;
+    font-size: 1.2rem;
+    font-weight: bold;
+    color: #fff;
+    padding: 10px 15px;
+    background: linear-gradient(135deg, #ff4d4d, #b30000);
+    border: none;
+    border-radius: 8px;
+    transition: transform 0.2s ease, box-shadow 0.2s ease, background 0.2s ease;
+    box-shadow: 0 6px 15px rgba(0, 0, 0, 0.3);
+    cursor: pointer;
+    z-index: 10;
+}
+
+#logout-button:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.4);
+    background: linear-gradient(135deg, #b30000, #ff4d4d);
+}
+
+#logout-button:active {
+    transform: translateY(1px);
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.3);
+}
+
+.container {
+    padding-bottom: 80px; 
+}

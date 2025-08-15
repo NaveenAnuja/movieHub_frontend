@@ -5,6 +5,9 @@ import { FormsModule } from '@angular/forms';
 import { RouterLink } from '@angular/router';
 import { environment } from '../../../../enviroment';
 import Swal from 'sweetalert2';
+import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
+import { Suggestion } from '../models/suggestion.model';
+import { EditSuggestionComponent } from '../edit-suggestion/edit-suggestion.component';
 
 @Component({
   selector: 'app-suggetion',
@@ -18,7 +21,7 @@ export class SuggetionComponent {
   public suggetionId: string = '';
   public suggestionList: any[] = [];
 
-  constructor(private http: HttpClient) {
+  constructor(private http: HttpClient, private modalService: NgbModal) {
     this.loadList();
   }
 
@@ -53,14 +56,14 @@ export class SuggetionComponent {
 
   private performDelete(id: number) {
     console.log('Attempting to delete suggestion with ID:', id);
-    
-    this.http.delete(`${environment.apiBaseUrl}/suggestion/delete/suggestion/${id}`, { 
+
+    this.http.delete(`${environment.apiBaseUrl}/suggestion/delete/suggestion/${id}`, {
       observe: 'response',
       responseType: 'text'
     }).subscribe({
       next: (response) => {
         console.log('Delete response:', response);
-        
+
         if (response.status >= 200 && response.status < 300) {
           Swal.fire({
             icon: 'success',
@@ -68,16 +71,16 @@ export class SuggetionComponent {
             timer: 2000,
             showConfirmButton: true
           });
-          this.loadList(); 
+          this.loadList();
         } else {
           this.handleDeleteError(`Unexpected status code: ${response.status}`);
         }
       },
       error: (err: HttpErrorResponse) => {
         console.error('Error deleting suggestion:', err);
-        
+
         let errorMessage = 'Failed to delete suggestion';
-        
+
         if (err.status === 500) {
           errorMessage = 'Internal server error. Please check the backend logs.';
         } else if (err.status === 404) {
@@ -89,7 +92,7 @@ export class SuggetionComponent {
         } else {
           errorMessage = `Server error: ${err.status} ${err.statusText}`;
         }
-        
+
         this.handleDeleteError(errorMessage);
       }
     });
@@ -128,6 +131,16 @@ export class SuggetionComponent {
           this.suggetionId = '';
         }
       });
+  }
+
+  openEditSuggestion(suggestion: Suggestion): void {
+    const modalRef = this.modalService.open(EditSuggestionComponent, { size: 'lg' });
+    modalRef.componentInstance.suggestion = suggestion;
+
+    modalRef.result.then(
+      (result) => result === 'updated' && this.loadList(),
+      () => { }
+    );
   }
 
   getUserName(suggestion: any): string {

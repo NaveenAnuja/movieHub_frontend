@@ -1,6 +1,6 @@
-import { NgFor } from '@angular/common';
 import { Component } from '@angular/core';
 import { RouterLink } from '@angular/router';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-main-page',
@@ -10,5 +10,10 @@ import { RouterLink } from '@angular/router';
   styleUrl: './main-page.component.css'
 })
 export class MainPageComponent {
+  constructor(private router: Router) { }
 
+  logout() {
+    localStorage.clear();
+    this.router.navigate(['/login']); // Redirect to login page
+  }
 }
