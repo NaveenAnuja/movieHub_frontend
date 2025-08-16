@@ -3,18 +3,27 @@
 
     <h1 class="text-center mb-4" style="font-weight: bold; font-size: 3rem;">Login Form</h1>
 
-    <div class="mb-3">
+    <div class="mb-0">
       <label for="inputEmail" class="form-label" style="font-weight: bold; font-size: 1.2rem;">E-mail</label>
       <input type="email" class="form-control" id="inputEmail" placeholder="Enter the email"
         [(ngModel)]="userDetails.email">
     </div>
     <br><br>
 
-    <div class="mb-3">
-      <label for="inputPassword" class="form-label" style="font-weight: bold; font-size: 1.2rem;">Password</label>
-      <input type="password" class="form-control" id="inputPassword" placeholder="Enter the password"
-        [(ngModel)]="userDetails.password">
+    <div class="mb-3 position-relative">
+      <label for="inputPassword" class="form-label" style="font-weight: bold; font-size: 1.2rem;">
+        Password
+      </label>
+      <input [type]="showPassword ? 'text' : 'password'" class="form-control pe-5" id="inputPassword"
+        placeholder="Enter the password" [(ngModel)]="userDetails.password">
+
+      <button type="button" class="btn position-absolute top-50 end-0 translate-middle-y me-3 p-0"
+        (click)="togglePassword()">
+        <i class="bi" [ngClass]="showPassword ? 'bi-eye-slash' : 'bi-eye'" style="font-size: 1.2rem; color: #555;"></i>
+      </button>
     </div>
+
+
     <br><br>
 
     <div class="row">

@@ -1,5 +1,5 @@
 import { Component, Input } from '@angular/core';
-import { FormsModule } from '@angular/forms'; // <-- Add this import
+import { FormsModule } from '@angular/forms'; 
 import { NgbActiveModal } from '@ng-bootstrap/ng-bootstrap';
 import { HttpClient } from '@angular/common/http';
 import Swal from 'sweetalert2';

@@ -27,10 +27,11 @@ export class EditMovieComponent {
     const updateRequest = {
       description: this.movie.description,
       rate: this.movie.rate,
-      movieCategory: this.movie.movieCategory, 
+      category: this.movie.category, 
       imageUrl: this.movie.imageUrl
     };
 
+    console.log(updateRequest)
     this.http.put(`${environment.apiBaseUrl}/movie/update/movie/${this.movie.id}`, updateRequest)
       .subscribe({
         next: () => {

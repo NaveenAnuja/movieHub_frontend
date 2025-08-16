@@ -20,20 +20,63 @@ h1 {
     }
 }
 
+.container-fluid {
+    background-image: url('/back1.jpg');
+    background-blend-mode: overlay;
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+    min-height: 100vh;
+    color: #fff;
+    background-color: rgba(0, 0, 0, 0.7);
+    display: flex;
+    flex-direction: column;
+    padding: 1rem;
+}
+
+.container {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+    max-width: 1200px;
+    margin: auto;
+}
+
+.input-group {
+    max-width: 500px;
+    width: 100%;
+    margin-bottom: 1.5rem;
+}
+
+.input-group input {
+    font-size: 1.2rem;
+    border-radius: 0.5rem 0 0 0.5rem;
+    border: 1px solid #ccc;
+}
+
+.input-group button {
+    border-radius: 0 0.5rem 0.5rem 0;
+    background-color: #667eea;
+    color: #fff;
+    border: none;
+    transition: 0.3s;
+}
+
+.input-group button:hover {
+    background-color: #5562c1;
+}
+
 #movieList {
     border-collapse: collapse; 
     width: 100%; 
+    margin-bottom: 1.5rem;
 }
+
 #movieList th, #movieList td {
     border: 2px solid #201e1e;
     padding: 8px;
-}
-
-#movieList td{
-    text-align: center;
-}
-
-#movieList th{
     text-align: center;
 }
 
@@ -46,25 +89,111 @@ h1 {
     background-color: #f9f9f9; 
 }
 
+#movieList tr:hover {
+    background-color: rgba(102, 126, 234, 0.2);
+    transition: 0.3s;
+}
+
 #movieList td button {
     display: inline-block;
-    margin-top: 10px; 
+    margin-top: 5px;
 }
 
-button{
-        justify-content: center;
-        align-items: center;
-        margin-right: 30px;
+button {
+    justify-content: center;
+    align-items: center;
+    margin-right: 15px;
+    border-radius: 0.5rem;
+    padding: 0.5rem 1rem;
+    font-weight: 600;
+    transition: 0.3s;
 }
 
-.container-fluid{
-    background-image: url('/back1.jpg');
-    background-blend-mode: overlay;
-    background-size: cover;
-    background-position: center;
-    background-repeat: no-repeat;
-    min-height: 100vh;
-    color: rgb(239, 237, 237); 
+button:hover {
+    transform: scale(1.05);
+}
+
+.btn-primary {
+    background-color: #667eea;
+    color: #fff;
+    border: none;
+}
+.btn-primary:hover {
+    background-color: #5562c1;
+}
+
+.btn-danger {
+    background-color: #e74c3c;
+    color: #fff;
+    border: none;
+}
+.btn-danger:hover {
+    background-color: #c0392b;
+}
+
+.btn-warning {
+    background-color: #f39c12;
+    color: #fff;
+    border: none;
+}
+.btn-warning:hover {
+    background-color: #e67e22;
+}
+
+.btn-secondary {
     background-color: #333;
+    color: #fff;
+    border: none;
+}
+.btn-secondary:hover {
+    background-color: #555;
 }
 
+@media (max-width: 992px) {
+    #movieList th, #movieList td {
+        font-size: 0.9rem;
+        padding: 6px;
+    }
+
+    h1 {
+        font-size: 2.5rem;
+        margin-left: 0;
+    }
+}
+
+@media (max-width: 768px) {
+    .input-group {
+        flex-direction: column;
+    }
+
+    .input-group input, .input-group button {
+        width: 100%;
+        border-radius: 0.5rem;
+        margin-bottom: 0.5rem;
+    }
+
+    #movieList th, #movieList td {
+        font-size: 0.85rem;
+        padding: 4px;
+    }
+
+    button {
+        margin-bottom: 0.5rem;
+        width: 100%;
+    }
+}
+
+@media (max-width: 576px) {
+    h1 {
+        font-size: 2rem;
+        text-align: center;
+    }
+
+    .container {
+        padding: 1rem;
+    }
+
+    #movieList {
+        font-size: 0.8rem;
+    }
+}

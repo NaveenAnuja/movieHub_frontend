@@ -5,56 +5,73 @@ import { FormsModule } from '@angular/forms';
 import { Router, RouterLink } from '@angular/router';
 import { environment } from '../../../../enviroment';
 import Swal from 'sweetalert2';
+import { MovieCategory } from '../movie/movieCategory.enum';
 
 @Component({
   selector: 'app-add-movie',
   standalone: true,
   imports: [RouterLink, HttpClientModule, FormsModule, CommonModule],
   templateUrl: './add-movie.component.html',
-  styleUrl: './add-movie.component.css'
+  styleUrls: ['./add-movie.component.css']
 })
 export class AddMovieComponent {
 
   constructor(private http: HttpClient, private router: Router) { }
 
+  categories = Object.values(MovieCategory);
+
   public movie = {
-    name: "",
+    movieName: "",
     description: "",
     rate: "",
-    category: ""
+    category: "",
+    imageUrl: "" 
   }
 
   public addMovie() {
+    const page = 0;
+    const size = 1000; 
 
-    this.http.get(`${environment.apiBaseUrl}/movie/view/movies`).subscribe((data: any) => {
-      const movieList = data;
+    this.http.get<any>(`${environment.apiBaseUrl}/movie/view/movies/page/${page}/size/${size}`)
+      .subscribe((data) => {
+        const movieList = data.movies;
 
-      const duplicateMovie = movieList.find(
-        (newMovie: any) => (newMovie.description === this.movie.description || newMovie.name === this.movie.name)
-      );
+        const duplicateMovie = movieList.find(
+          (m: any) =>
+            m.movieName === this.movie.movieName || m.description === this.movie.description
+        );
 
-      if (duplicateMovie) {
-        alert("This Movie is already added. Please add a different movie !");
-        this.clearFields();
-      } else {
-
-        this.http.post(`${environment.apiBaseUrl}/movie/add/movie`, this.movie).subscribe((data) => {
-          Swal.fire({
-            icon: 'success',
-            title: 'Movie Added successfully!',
-            timer: 2000,
-            showConfirmButton: true
-          })
-          this.router.navigate(['/movie']);
-        });
-      }
-    })
+        if (duplicateMovie) {
+          alert("This Movie is already added. Please add a different movie!");
+          this.clearFields();
+        } else {
+  
+          this.http.post(`${environment.apiBaseUrl}/movie/add/movie`, this.movie)
+            .subscribe(() => {
+              Swal.fire({
+                icon: 'success',
+                title: 'Movie Added successfully!',
+                timer: 2000,
+                showConfirmButton: true
+              });
+              this.router.navigate(['/movie']);
+            }, (err) => {
+              console.error('Add movie error:', err);
+              Swal.fire({
+                icon: 'error',
+                title: 'Failed to add movie!',
+                text: err.error?.message || 'Internal server error'
+              });
+            });
+        }
+      });
   }
 
   private clearFields() {
-    this.movie.name = "";
+    this.movie.movieName = "";
     this.movie.description = "";
     this.movie.rate = "";
     this.movie.category = "";
+    this.movie.imageUrl = "";
   }
 }

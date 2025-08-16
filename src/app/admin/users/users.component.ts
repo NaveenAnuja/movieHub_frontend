@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { HttpClient, HttpClientModule } from '@angular/common/http';
+import { HttpClient, HttpClientModule, HttpHeaders } from '@angular/common/http';
 import { CommonModule, NgFor } from '@angular/common';
 import { RouterLink } from '@angular/router';
 import { FormsModule } from '@angular/forms';
@@ -22,7 +22,7 @@ export class UsersComponent {
   public selectedUser: any = {};
   public userId: string = '';
 
-  constructor(private http: HttpClient,private modalService: NgbModal) {
+  constructor(private http: HttpClient, private modalService: NgbModal) {
     this.loadUsers();
   }
 
@@ -50,6 +50,16 @@ export class UsersComponent {
   }
 
   public deleteUsers(id: any) {
+    const token = localStorage.getItem('token');
+
+    if (!token) {
+      Swal.fire('Error!', 'You are not authorized', 'error');
+      return;
+    }
+
+  const headers = token ? new HttpHeaders({ 'Authorization': `Bearer ${token}` }) : undefined;
+
+
     Swal.fire({
       title: 'Are you sure?',
       text: 'This action cannot be undone!',
@@ -58,9 +68,10 @@ export class UsersComponent {
       confirmButtonColor: '#d33',
       cancelButtonColor: '#3085d6',
       confirmButtonText: 'Yes, delete it!'
-    }).then((result) => {
+    })
+    .then((result) => {
       if (result.isConfirmed) {
-        this.http.delete(`${environment.apiBaseUrl}/user/delete/user/${id}`, { responseType: 'text' })
+        this.http.delete(`${environment.apiBaseUrl}/user/delete/user/${id}`, {headers})
           .subscribe({
             next: () => {
               Swal.fire({
@@ -138,15 +149,15 @@ export class UsersComponent {
       });
   }
 
-    openEditUser(user: User): void {
-      const modalRef = this.modalService.open(EditUserComponent, { size: 'lg' });
-      modalRef.componentInstance.user = user;
-  
-      modalRef.result.then(
-        (result) => result === 'updated' && this.loadUsers(),
-        () => { }
-      );
-    }
+  openEditUser(user: User): void {
+    const modalRef = this.modalService.open(EditUserComponent, { size: 'lg' });
+    modalRef.componentInstance.user = user;
+
+    modalRef.result.then(
+      (result) => result === 'updated' && this.loadUsers(),
+      () => { }
+    );
+  }
 
   formatDate(dateString: string): string {
     if (!dateString) return 'N/A';

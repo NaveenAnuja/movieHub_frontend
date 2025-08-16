@@ -44,6 +44,7 @@ export class EditSuggestionComponent {
   }
 
   updateSuggestion() {
+    
     if (!this.validateComment()) {
       Swal.fire({
         icon: 'error',

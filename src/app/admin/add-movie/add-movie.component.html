@@ -2,25 +2,45 @@
     <div class="row">
         <h1 id="title">ADD MOVIE</h1><br>
     </div>
+
     <div class="mb-3 w-75">
         <label for="movieName" class="form-label">Movie Name</label>
-        <input type="text" class="form-control" id="movieName" [(ngModel)]="movie.name" placeholder="Enter the Movie Name">
+        <input type="text" class="form-control" id="movieName" [(ngModel)]="movie.movieName"
+            placeholder="Enter the Movie Name">
     </div>
+
     <div class="mb-3 w-75">
         <label for="description" class="form-label">Description</label>
-        <textarea class="form-control" id="description" rows="3" [(ngModel)]="movie.description" placeholder="Enter the Movie Description"></textarea>
+        <textarea class="form-control" id="description" rows="3" [(ngModel)]="movie.description"
+            placeholder="Enter the Movie Description"></textarea>
     </div>
+
     <div class="mb-3 w-75">
         <label for="rate" class="form-label">Rate</label>
-        <input type="number" class="form-control" id="rate"  [(ngModel)]="movie.rate" placeholder="Enter the Movie Rate">
+        <input type="number" class="form-control" id="rate" [(ngModel)]="movie.rate" placeholder="Enter the Movie Rate">
     </div>
+
     <div class="mb-3 w-75">
         <label for="category" class="form-label">Category</label>
-        <input type="text" class="form-control" id="category" [(ngModel)]="movie.category" placeholder="Enter the Movie Category">
+        <select class="form-control" id="category" [(ngModel)]="movie.category">
+            <option value="" disabled selected>Select a category</option>
+            <option *ngFor="let category of categories" [value]="category">{{ category }}</option>
+        </select>
     </div>
-<br>
+
+    <div class="mb-3 w-75">
+        <label for="imageUrl" class="form-label">Movie Image URL</label>
+        <input type="text" class="form-control" id="imageUrl" [(ngModel)]="movie.imageUrl"
+            placeholder="Enter a valid image URL">
+    </div>
+
+    <br>
+
     <div class="d-flex w-75 justify-content-end gap-3">
-        <button type="button" class="btn btn-success" (click)="addMovie()" [disabled]="!movie.name || !movie.description || !movie.rate || !movie.category">Add</button>
+        <button type="button" class="btn btn-success" (click)="addMovie()"
+            [disabled]="!movie.movieName || !movie.description || !movie.rate || !movie.category || !movie.imageUrl">
+            Add
+        </button>
         <button class="btn btn-dark" routerLink="/movie" style="margin-left: 25px;">Back</button>
     </div>
 </div>

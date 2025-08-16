@@ -22,7 +22,13 @@ export class SignupComponent {
     password: ""
   };
 
+  public showPassword = false; 
+
   constructor(private http: HttpClient, private router: Router) { }
+
+   togglePassword() {
+    this.showPassword = !this.showPassword;
+  }
 
   public addUser() {
     if (!this.user.password || this.user.password.length < 6 || this.user.password.length > 10) {
@@ -65,7 +71,7 @@ export class SignupComponent {
             this.saveData();
             Swal.fire({
               icon: 'success',
-              title: 'User Added Successfully !',
+              title: 'User Added Successfully',
               text: 'Welcome to my MovieHub.',
               timer: 2000,
               showConfirmButton: false
