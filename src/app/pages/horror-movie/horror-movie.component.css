@@ -1,12 +1,22 @@
-.container-fluid{
+html, body {
+    height: 100%;
+    margin: 0;
+    padding: 0;
+}
+
+.container-fluid {
     background-image: url('/back3.jpg');
     background-blend-mode: overlay;
     background-size: cover;
     background-position: center;
     background-repeat: no-repeat;
     min-height: 100vh;
-    color: white; 
-} 
+    color: white;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start; 
+    padding-bottom: 8rem;
+}
 
 .desc {
     position: relative;
@@ -14,6 +24,8 @@
     transform: scale(0.5);
     animation: zoomInEffect 1.5s ease-out forwards;
     color: aliceblue;
+    text-align: center;
+    margin-bottom: 2rem;
 }
 
 @keyframes zoomInEffect {
@@ -24,5 +36,23 @@
     100% {
         opacity: 1;
         transform: scale(1);
+    }
+}
+
+.row.row-cols-1.row-cols-sm-2.row-cols-md-3.g-3 {
+    margin: 0;
+}
+
+.row.row-cols-1.row-cols-sm-2.row-cols-md-3.g-3 > .col:last-child {
+    margin-bottom: 0;
+}
+
+.container-fluid > .row:last-child {
+    flex-grow: 1;
+}
+
+@media (max-width: 768px) {
+    .container-fluid {
+        padding: 1rem;
     }
 }

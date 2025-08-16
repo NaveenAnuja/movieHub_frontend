@@ -1,12 +1,11 @@
-h1 {
+h1#title {
     font-size: 3rem;
     font-family: "Abril Fatface", serif;
     font-weight: bold;
     margin-top: 10px;
-    margin-left: 10px;
     letter-spacing: 1px;
     color: rgb(145, 220, 220);
-    animation: fadeInSlideDown 2s ease-in-out; 
+    animation: fadeInSlideDown 2s ease-in-out;
 }
 
 @keyframes fadeInSlideDown {
@@ -20,14 +19,75 @@ h1 {
     }
 }
 
+.container-fluid {
+    background-image: url('/back1.jpg'); 
+    background-blend-mode: overlay;
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+    min-height: 100vh;
+    color: #fff;
+    background-color: rgba(0, 0, 0, 0.7);
+    padding: 1rem;
+}
+
+.container {
+    max-width: 1200px;
+    margin: auto;
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.input-group {
+    width: 100%;
+    display: flex;
+    gap: 0.5rem;
+}
+
+.input-group input, 
+.input-group select,
+.input-group button {
+    border-radius: 0.5rem;
+    padding: 0.5rem 1rem;
+    font-size: 1rem;
+    border: 1px solid #ccc;
+    transition: 0.3s;
+}
+
+.input-group input:focus, .input-group select:focus {
+    border-color: #667eea;
+    box-shadow: 0 0 5px rgba(102, 126, 234, 0.5);
+    outline: none;
+}
+
+.input-group button {
+    background-color: #667eea;
+    color: #fff;
+    border: none;
+    cursor: pointer;
+}
+
+.input-group button:hover {
+    background-color: #5562c1;
+}
+
+.table-responsive {
+    width: 100%;
+    overflow-x: auto;
+}
+
 #movieList {
     border-collapse: collapse; 
     width: 100%; 
+    margin-bottom: 1.5rem;
 }
+
 #movieList th, #movieList td {
     border: 2px solid #201e1e;
     padding: 8px;
-    text-align: left; 
+    text-align: center;
 }
 
 #movieList th {
@@ -39,77 +99,107 @@ h1 {
     background-color: #f9f9f9; 
 }
 
-#movieList td button {
-    display: inline-block;
-    margin-top: 10px; 
+#movieList tr:hover {
+    background-color: rgba(102, 126, 234, 0.2);
+    transition: 0.3s;
 }
 
-.container-fluid{
-    background-image: url('/back3.jpg');
-    background-blend-mode: overlay;
-    background-size: cover;
-    background-position: center;
-    background-repeat: no-repeat;
-    min-height: 100vh;
-    color: rgb(239, 237, 237); 
-    background-color: #333;
+#movieList td img {
+    max-height: 50px;
+    border-radius: 0.25rem;
 }
 
-.pagination {
-  flex-wrap: wrap;
+button {
+    margin: 0.25rem;
+    border-radius: 0.5rem;
+    padding: 0.5rem 1rem;
+    font-weight: 600;
+    transition: 0.3s;
 }
 
-.page-item {
-  margin: 2px;
-}
-
-.page-link {
-  cursor: pointer;
-}
-
-.input-group {
-  display: flex;
-  flex-wrap: nowrap;
-}
-
-.form-select {
-  border-top-left-radius: 0;
-  border-bottom-left-radius: 0;
-  margin-left: -1px;
-}
-
-.input-group > :not(:first-child):not(:last-child) {
-  margin-right: 8px;
+button:hover {
+    transform: scale(1.05);
 }
 
 .btn-primary {
-  border-top-right-radius: 0;
-  border-bottom-right-radius: 0;
+    background-color: #667eea;
+    color: #fff;
+    border: none;
 }
+.btn-primary:hover { background-color: #5562c1; }
 
-.table {
-  font-size: 0.9rem;
+.btn-danger {
+    background-color: #e74c3c;
+    color: #fff;
+    border: none;
 }
+.btn-danger:hover { background-color: #c0392b; }
 
-.table th, .table td {
-  padding: 0.5rem;
+.btn-success {
+    background-color: #27ae60;
+    color: #fff;
 }
+.btn-success:hover { background-color: #1e8449; }
+
+.btn-warning {
+    background-color: #f39c12;
+    color: #fff;
+}
+.btn-warning:hover { background-color: #e67e22; }
+
+.btn-secondary {
+    background-color: #333;
+    color: #fff;
+}
+.btn-secondary:hover { background-color: #555; }
 
 .pagination {
-  flex-wrap: wrap;
-  justify-content: center;
+    display: flex;
+    gap: 0.25rem;
+    justify-content: center;
+    margin: 1rem 0;
 }
 
-.page-item {
-  margin: 2px;
+.pagination .page-item .page-link {
+    color: #333;
+    background-color: #f2f2f2;
+    border-radius: 0.5rem;
+    padding: 0.5rem 0.75rem;
+    cursor: pointer;
+    transition: 0.3s;
 }
 
-.page-link {
-  cursor: pointer;
+.pagination .page-item.active .page-link {
+    background-color: #667eea;
+    color: #fff;
 }
 
-img {
-  max-height: 50px;
-  max-width: 80px;
-  object-fit: cover;
+.pagination .page-item.disabled .page-link {
+    cursor: not-allowed;
+    opacity: 0.5;
+}
+
+@media (max-width: 992px) {
+    h1#title { font-size: 2.5rem; }
+    .input-group input, .input-group select, .input-group button {
+        font-size: 0.95rem;
+    }
+}
+
+@media (max-width: 768px) {
+    .input-group {
+        flex-direction: column;
+    }
+    .input-group input, .input-group select, .input-group button {
+        width: 100%;
+        border-radius: 0.5rem;
+        margin-bottom: 0.5rem;
+    }
+    #movieList th, #movieList td { font-size: 0.85rem; padding: 6px; }
+}
+
+@media (max-width: 576px) {
+    h1#title { font-size: 2rem; text-align: center; }
+    button { width: 100%; margin-bottom: 0.5rem; }
+    #movieList th, #movieList td { font-size: 0.75rem; padding: 4px; }
 }
