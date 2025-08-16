@@ -1,7 +1,7 @@
 import { Component, Input } from '@angular/core';
-import { FormsModule } from '@angular/forms'; 
+import { FormsModule } from '@angular/forms';
 import { NgbActiveModal } from '@ng-bootstrap/ng-bootstrap';
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpHeaders } from '@angular/common/http';
 import Swal from 'sweetalert2';
 import { environment } from '../../../../enviroment';
 import { CommonModule } from '@angular/common';
@@ -10,7 +10,7 @@ import { CommonModule } from '@angular/common';
   selector: 'app-edit-user',
   standalone: true,
   imports: [
-    FormsModule, 
+    FormsModule,
     CommonModule
   ],
   templateUrl: './edit-user.component.html',
@@ -22,25 +22,31 @@ export class EditUserComponent {
   constructor(
     public activeModal: NgbActiveModal,
     private http: HttpClient
-  ) {}
+  ) { }
 
-updateUser() {
-  const updateRequest = {
-    name: this.user.name,
-    email: this.user.email 
-  };
+  updateUser() {
+    const updateRequest = {
+      name: this.user.name,
+      email: this.user.email
+    };
 
-  this.http.put(`${environment.apiBaseUrl}/user/update/user/${this.user.id}`, updateRequest)
-    .subscribe({
-      next: () => {
-        Swal.fire('Success!', 'User updated successfully', 'success');
-        this.activeModal.close('updated');
-      },
-      error: (error) => {
-        Swal.fire('Error!', error.error?.message || 'Failed to update user', 'error');
-      }
+    const token = localStorage.getItem('token');
+
+    const headers = new HttpHeaders({
+      Authorization: `Bearer ${token}`
     });
-}
+
+    this.http.put(`${environment.apiBaseUrl}/user/update/user/${this.user.id}`, updateRequest,{ headers })
+      .subscribe({
+        next: () => {
+          Swal.fire('Success!', 'User updated successfully', 'success');
+          this.activeModal.close('updated');
+        },
+        error: (error) => {
+          Swal.fire('Error!', error.error?.message || 'Failed to update user', 'error');
+        }
+      });
+  }
 
   formatDate(date: string | Date | undefined): string {
     if (!date) return 'N/A';

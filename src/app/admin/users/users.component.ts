@@ -57,8 +57,7 @@ export class UsersComponent {
       return;
     }
 
-  const headers = token ? new HttpHeaders({ 'Authorization': `Bearer ${token}` }) : undefined;
-
+    const headers = token ? new HttpHeaders({ 'Authorization': `Bearer ${token}` }) : undefined;
 
     Swal.fire({
       title: 'Are you sure?',
@@ -69,31 +68,31 @@ export class UsersComponent {
       cancelButtonColor: '#3085d6',
       confirmButtonText: 'Yes, delete it!'
     })
-    .then((result) => {
-      if (result.isConfirmed) {
-        this.http.delete(`${environment.apiBaseUrl}/user/delete/user/${id}`, {headers})
-          .subscribe({
-            next: () => {
-              Swal.fire({
-                icon: 'success',
-                title: 'User deleted successfully!',
-                timer: 2000,
-                showConfirmButton: true
-              });
-              this.loadUsers();
-            },
-            error: (err) => {
-              Swal.fire({
-                icon: 'error',
-                title: 'Failed to delete user',
-                text: 'Please try again later',
-                timer: 2000,
-                showConfirmButton: true
-              });
-            }
-          });
-      }
-    });
+      .then((result) => {
+        if (result.isConfirmed) {
+          this.http.delete(`${environment.apiBaseUrl}/user/delete/user/${id}`, { headers })
+            .subscribe({
+              next: () => {
+                Swal.fire({
+                  icon: 'success',
+                  title: 'User deleted successfully!',
+                  timer: 2000,
+                  showConfirmButton: true
+                });
+                this.loadUsers();
+              },
+              error: (err) => {
+                Swal.fire({
+                  icon: 'error',
+                  title: 'Failed to delete user',
+                  text: 'Please try again later',
+                  timer: 2000,
+                  showConfirmButton: true
+                });
+              }
+            });
+        }
+      });
   }
 
   public searchValue: string = '';

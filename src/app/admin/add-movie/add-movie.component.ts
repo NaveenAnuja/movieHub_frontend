@@ -29,43 +29,49 @@ export class AddMovieComponent {
   }
 
   public addMovie() {
-    const page = 0;
-    const size = 1000; 
+  const page = 0;
+  const size = 1000;
 
-    this.http.get<any>(`${environment.apiBaseUrl}/movie/view/movies/page/${page}/size/${size}`)
-      .subscribe((data) => {
-        const movieList = data.movies;
+  this.http.get<any>(`${environment.apiBaseUrl}/movie/view/movies/page/${page}/size/${size}`)
+    .subscribe((data) => {
+      const movieList = data.movies;
 
-        const duplicateMovie = movieList.find(
-          (m: any) =>
-            m.movieName === this.movie.movieName || m.description === this.movie.description
-        );
+      const duplicateMovie = movieList.find(
+        (m: any) =>
+          m.movieName === this.movie.movieName || m.description === this.movie.description
+      );
 
-        if (duplicateMovie) {
-          alert("This Movie is already added. Please add a different movie!");
-          this.clearFields();
-        } else {
-  
-          this.http.post(`${environment.apiBaseUrl}/movie/add/movie`, this.movie)
-            .subscribe(() => {
-              Swal.fire({
-                icon: 'success',
-                title: 'Movie Added successfully!',
-                timer: 2000,
-                showConfirmButton: true
-              });
-              this.router.navigate(['/movie']);
-            }, (err) => {
-              console.error('Add movie error:', err);
-              Swal.fire({
-                icon: 'error',
-                title: 'Failed to add movie!',
-                text: err.error?.message || 'Internal server error'
-              });
+      if (duplicateMovie) {
+        alert("This Movie is already added. Please add a different movie!");
+        this.clearFields();
+      } else {
+        const token = localStorage.getItem("token");
+
+        const headers = {
+          Authorization: `Bearer ${token}`
+        };
+
+        this.http.post(`${environment.apiBaseUrl}/movie/add/movie`, this.movie, { headers })
+          .subscribe(() => {
+            Swal.fire({
+              icon: 'success',
+              title: 'Movie Added successfully!',
+              timer: 2000,
+              showConfirmButton: true
             });
-        }
-      });
-  }
+            this.router.navigate(['/movie']);
+          }, (err) => {
+            console.error('Add movie error:', err);
+            Swal.fire({
+              icon: 'error',
+              title: 'Failed to add movie!',
+              text: err.error?.message || 'Internal server error'
+            });
+          });
+      }
+    });
+}
+
 
   private clearFields() {
     this.movie.movieName = "";

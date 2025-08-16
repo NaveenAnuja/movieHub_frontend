@@ -1,7 +1,7 @@
 <div class="col">
   <div class="container d-flex justify-content-center align-items-center">
-    <div class="card shadow-sm movie-card" style="margin-top: 10px; width: 80%;">
-      <img [src]="movieInfo?.imageUrl" alt="Movie Poster" style="margin: 2px; align-items: center;" height="380px" />
+    <div class="card shadow-sm movie-card">
+      <img [src]="movieInfo?.imageUrl" alt="Movie Poster" class="movie-poster img-fluid" />
 
       <div class="card-body">
         <h5 class="card-title">{{ movieInfo?.movieName }}</h5>
@@ -9,14 +9,14 @@
           {{ movieInfo?.description }}
         </p>
 
-        <div class="d-flex justify-content-between align-items-center">
-          <div class="btn-group">
-            <button type="button" class="btn btn-outline-dark" style="font-weight: bold;" (click)="viewMovie()">View</button>
+        <div class="d-flex justify-content-between align-items-center flex-wrap">
+          <div class="btn-group mb-2">
+            <button type="button" class="btn btn-outline-dark fw-bold" (click)="viewMovie()">View</button>
           </div>
-          <div class="btn-group">
-            <button type="button" class="btn btn-outline-success" style="font-weight: bold;" (click)="saveMovieInfo()" routerLink="/suggetions">Suggestions</button>
+          <div class="btn-group mb-2">
+            <button type="button" class="btn btn-outline-success fw-bold" (click)="saveMovieInfo()" routerLink="/suggetions">Suggestions</button>
           </div>
-          <small class="text-body-secondary" style="font-size: 1.3rem; font-weight: bold;">
+          <small class="text-body-secondary rating-text">
             {{ movieInfo?.rate }}⭐
           </small>
         </div>

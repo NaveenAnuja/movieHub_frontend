@@ -1,7 +1,7 @@
 import { Component, Input } from '@angular/core';
 import Swal from 'sweetalert2';
 import { NgbActiveModal } from '@ng-bootstrap/ng-bootstrap';
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { environment } from '../../../../enviroment';
 import { FormsModule } from '@angular/forms';
 import { CommonModule } from '@angular/common';
@@ -11,7 +11,7 @@ import { CommonModule } from '@angular/common';
   standalone: true,
   imports: [FormsModule, CommonModule],
   templateUrl: './edit-suggestion.component.html',
-  styleUrl: './edit-suggestion.component.css'
+  styleUrls: ['./edit-suggestion.component.css'] // ✅ corrected (styleUrls not styleUrl)
 })
 export class EditSuggestionComponent {
   @Input() suggestion: any;
@@ -44,7 +44,6 @@ export class EditSuggestionComponent {
   }
 
   updateSuggestion() {
-    
     if (!this.validateComment()) {
       Swal.fire({
         icon: 'error',
@@ -61,28 +60,37 @@ export class EditSuggestionComponent {
       comment: this.suggestion.comment.trim()
     };
 
-    this.http.put(`${environment.apiBaseUrl}/suggestion/update/suggestion/${this.suggestion.id}`, updateRequest)
-      .subscribe({
-        next: () => {
-          Swal.fire({
-            title: 'Success!',
-            text: 'Suggestion updated successfully',
-            icon: 'success',
-            timer: 1500,
-            showConfirmButton: false
-          });
-          this.activeModal.close('updated');
-        },
-        error: (error) => {
-          this.isLoading = false;
-          Swal.fire({
-            icon: 'error',
-            title: 'Error!',
-            text: error.error?.message || 'Failed to update suggestion',
-            confirmButtonColor: '#0d6efd'
-          });
-        },
-        complete: () => this.isLoading = false
-      });
+    const token = localStorage.getItem('token');
+
+    const headers = new HttpHeaders({
+      Authorization: `Bearer ${token}`
+    });
+
+    this.http.put(
+      `${environment.apiBaseUrl}/suggestion/update/suggestion/${this.suggestion.id}`,
+      updateRequest,
+      { headers }
+    ).subscribe({
+      next: () => {
+        Swal.fire({
+          title: 'Success!',
+          text: 'Suggestion updated successfully',
+          icon: 'success',
+          timer: 1500,
+          showConfirmButton: false
+        });
+        this.activeModal.close('updated');
+      },
+      error: (error) => {
+        this.isLoading = false;
+        Swal.fire({
+          icon: 'error',
+          title: 'Error!',
+          text: error.error?.message || 'Failed to update suggestion',
+          confirmButtonColor: '#0d6efd'
+        });
+      },
+      complete: () => this.isLoading = false
+    });
   }
 }

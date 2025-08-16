@@ -1,6 +1,6 @@
 import { Component, Input } from '@angular/core';
 import { NgbActiveModal } from '@ng-bootstrap/ng-bootstrap';
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { environment } from '../../../../enviroment';
 import Swal from 'sweetalert2';
 import { FormsModule } from '@angular/forms';
@@ -31,27 +31,38 @@ export class EditMovieComponent {
       imageUrl: this.movie.imageUrl
     };
 
-    console.log(updateRequest)
-    this.http.put(`${environment.apiBaseUrl}/movie/update/movie/${this.movie.id}`, updateRequest)
-      .subscribe({
-        next: () => {
-          Swal.fire({
-            icon: 'success',
-            title: 'Movie updated successfully!',
-            timer: 2000,
-            showConfirmButton: true
-          });
-          this.activeModal.close('updated');
-        },
-        error: () => {
-          Swal.fire({
-            icon: 'error',
-            title: 'Error updating movie',
-            timer: 2000,
-            showConfirmButton: true
-          });
-        }
-      });
+    // ✅ Get token from localStorage
+    const token = localStorage.getItem('token');
+
+    // ✅ Attach Authorization header
+    const headers = new HttpHeaders({
+      Authorization: `Bearer ${token}`
+    });
+
+    this.http.put(
+      `${environment.apiBaseUrl}/movie/update/movie/${this.movie.id}`,
+      updateRequest,
+      { headers }
+    ).subscribe({
+      next: () => {
+        Swal.fire({
+          icon: 'success',
+          title: 'Movie updated successfully!',
+          timer: 2000,
+          showConfirmButton: true
+        });
+        this.activeModal.close('updated');
+      },
+      error: (err) => {
+        Swal.fire({
+          icon: 'error',
+          title: 'Error updating movie',
+          text: err.error?.message || 'Unauthorized or server error',
+          timer: 2000,
+          showConfirmButton: true
+        });
+      }
+    });
   }
   
   getCategoryDisplayName(movieCategory: string): string {

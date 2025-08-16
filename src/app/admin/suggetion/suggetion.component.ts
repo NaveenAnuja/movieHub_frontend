@@ -1,5 +1,5 @@
 import { CommonModule } from '@angular/common';
-import { HttpClient, HttpClientModule, HttpErrorResponse } from '@angular/common/http';
+import { HttpClient, HttpClientModule, HttpErrorResponse, HttpHeaders } from '@angular/common/http';
 import { Component } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { RouterLink } from '@angular/router';
@@ -55,9 +55,15 @@ export class SuggetionComponent {
   }
 
   private performDelete(id: number) {
-    console.log('Attempting to delete suggestion with ID:', id);
+
+    const token = localStorage.getItem('token');
+
+    const headers = new HttpHeaders({
+      Authorization: `Bearer ${token}`
+    });
 
     this.http.delete(`${environment.apiBaseUrl}/suggestion/delete/suggestion/${id}`, {
+      headers,
       observe: 'response',
       responseType: 'text'
     }).subscribe({

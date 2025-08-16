@@ -2,7 +2,7 @@ import { CommonModule, NgFor } from '@angular/common';
 import { Component, OnInit } from '@angular/core';
 import { RouterLink } from '@angular/router';
 import { FormsModule } from '@angular/forms';
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpHeaders } from '@angular/common/http';
 import Swal from 'sweetalert2';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { MovieCategory } from './movieCategory.enum';
@@ -83,9 +83,16 @@ export class MovieComponent implements OnInit {
     this.showDeleteConfirmation().then((confirmed) => {
       if (!confirmed) return;
 
+      const token = localStorage.getItem('token');
+
+      const headers = new HttpHeaders({
+        Authorization: `Bearer ${token}`
+      });
+
       this.http.delete(`${environment.apiBaseUrl}/movie/delete/movie/${id}`, {
+        headers,
         observe: 'response',
-        responseType: 'text' as const  
+        responseType: 'text' as const
       }).subscribe({
         next: (response) => {
           if (response.status === 200) {
@@ -104,6 +111,7 @@ export class MovieComponent implements OnInit {
       });
     });
   }
+
   openEditMovie(movie: Movie): void {
     const modalRef = this.modalService.open(EditMovieComponent, { size: 'lg' });
     modalRef.componentInstance.movie = movie;
