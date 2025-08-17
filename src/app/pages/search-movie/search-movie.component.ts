@@ -4,6 +4,7 @@ import { NgFor } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { NavBarComponent } from '../../common/nav-bar/nav-bar.component';
 import { environment } from '../../../../enviroment';
+import Swal from 'sweetalert2'; 
 
 @Component({
   selector: 'app-search-movie',
@@ -23,17 +24,24 @@ export class SearchMovieComponent {
         if (data && data.id) {
           this.movieList = [data];
         } else {
-          alert("Movie Not Found");
           this.movieList = [];
+          Swal.fire({
+            icon: 'error',
+            title: 'Movie Not Found',
+            text: `No movie found with the name "${this.movieName}".`,
+          });
         }
       })
       .catch(error => {
         console.error(error);
-        alert("An error occurred. Please try again later.");
         this.movieList = [];
+        Swal.fire({
+          icon: 'error',
+          title: 'Error',
+          text: 'An error occurred. Please try again later.',
+        });
       });
   }
-
 
 }
 

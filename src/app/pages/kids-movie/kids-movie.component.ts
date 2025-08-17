@@ -25,6 +25,7 @@ export class KidsMovieComponent implements OnInit {
     .then(data => {
       if (data && data.movies) {
         this.movieList = data.movies;
+        console.log(this.movieList);
       } else {
         this.movieList = [];
       }
